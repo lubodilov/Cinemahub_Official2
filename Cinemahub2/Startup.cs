@@ -1,6 +1,8 @@
+using Cinemahub2.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -24,6 +26,10 @@ namespace Cinemahub2
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddDbContext<UserDbContext>(options =>
+            {
+                options.UseMySQL("Server=localhost;Database=Cinemahub_db;Uid=root;Pwd=Lubodinamo04;");
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

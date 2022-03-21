@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -13,8 +14,12 @@ namespace Cinemahub2.Models
         public string Director { get; set; }
         public DateTime Released { get; set; }
         public int Duration { get; set; }
+        
+        [ForeignKey("Actor")]
         public int ActorsId { get; set; }
         public Actor Actor { get; set; }
+        
+        [ForeignKey("User")]
         public int UserId { get; set; }
         public User User { get; set; }
 
