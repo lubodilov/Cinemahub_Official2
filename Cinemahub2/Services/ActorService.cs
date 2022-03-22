@@ -39,7 +39,7 @@ namespace Cinemahub2.Services
         //
         public void Delete(int id)
         {
-            movieService.Delete(GetById(id).MovieId);
+            //movieService.Delete(GetById(id).MovieId);
         }
         //
         //Summary:
@@ -48,11 +48,15 @@ namespace Cinemahub2.Services
         public void Edit(Actor actor)
         {
             Actor oldActor = GetById(actor.Id);
-            oldActor.Description = actor.Description;
-            oldActor.Movie.Age = actor.Movie.Age;
+            oldActor.Name = actor.Name;
+            oldActor.Nationality = actor.Nationality;
+            oldActor.Status = actor.Status;
+            oldActor.Birthday = actor.Birthday;
             oldActor.Movie.Name = actor.Movie.Name;
-            oldActor.Movie.Species = actor.Movie.Species;
-            oldActor.Movie.Status = actor.Movie.Status;
+            oldActor.Movie.Genre = actor.Movie.Genre;
+            oldActor.Movie.Director = actor.Movie.Director;
+            oldActor.Movie.Released = actor.Movie.Released;
+            oldActor.Movie.Duration = actor.Movie.Duration;
             dbContext.SaveChanges();
         }
         //
