@@ -1,7 +1,10 @@
 using Cinemahub2.Data;
+using Cinemahub2.Models;
+using Cinemahub2.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -26,10 +29,30 @@ namespace Cinemahub2
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IActorService, ActorService>();
             services.AddDbContext<UserDbContext>(options =>
             {
                 options.UseMySQL("Server=localhost;Database=Cinemahub_db;Uid=root;Pwd=Lubodinamo04;");
             });
+
+            services.AddIdentity<User, IdentityRole<int>>(opt =>
+            {
+                opt.Password.RequireDigit = false;
+                opt.Password.RequireLowercase = false;
+                opt.Password.RequiredUniqueChars = 1;
+                opt.Password.RequiredLength = 3;
+                opt.Password.RequireNonAlphanumeric = false;
+                opt.Password.RequireUppercase = false;
+
+
+                opt.SignIn.RequireConfirmedAccount = false;
+
+
+                opt.User.RequireUniqueEmail = true;
+            })
+               .AddEntityFrameworkStores<UserDbContext>()
+               .AddDefaultTokenProviders();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
