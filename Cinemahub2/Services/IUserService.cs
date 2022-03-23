@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Cinemahub2.Services
 {
-    interface IUserService
+    public interface IUserService
     {
         User GetEntityById(int id);
         UserDTO GetById(int id);

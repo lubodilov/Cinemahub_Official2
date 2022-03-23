@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Cinemahub2.Services
 {
-    interface IActorService
+    public interface IActorService
     {
         void Edit(Actor actor);
         void Delete(int id);
