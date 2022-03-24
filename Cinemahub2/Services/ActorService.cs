@@ -14,16 +14,16 @@ namespace Cinemahub2.Services
     public class ActorService : IActorService
     {
         private UserDbContext dbContext;
-        /*private MovieService movieService;
+        private MoviesService movieService;
         public ActorService(UserDbContext dbContext)
         {
             this.dbContext = dbContext;
-            this.movieService = new MovieService(dbContext);
+            this.movieService = new MoviesService(dbContext);
             foreach (var actor in dbContext.Actors.ToList<Actor>())
             {
-                actor.Movie = movieService.GetById(actor.MovieId);
+                actor.Movie = movieService.GetById(actor.Movie.Id);
             }
-        }*/
+        }
         //
         //Summary:
         //  Creates a new actor and ads it to the DB
@@ -39,7 +39,7 @@ namespace Cinemahub2.Services
         //
         public void Delete(int id)
         {
-            //movieService.Delete(GetById(id).MovieId);
+           /movieService.Delete(GetById(id).Movie.Id);
         }
         //
         //Summary:
