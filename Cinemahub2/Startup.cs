@@ -31,6 +31,7 @@ namespace Cinemahub2
             services.AddControllersWithViews();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IActorService, ActorService>();
+            //services.AddScoped<IMoviesService, MoviesService>();
             services.AddDbContext<UserDbContext>(options =>
             {
                 options.UseMySQL("Server=localhost;Database=Cinemahub_db;Uid=root;Pwd=Lubodinamo04;");
@@ -44,11 +45,7 @@ namespace Cinemahub2
                 opt.Password.RequiredLength = 3;
                 opt.Password.RequireNonAlphanumeric = false;
                 opt.Password.RequireUppercase = false;
-
-
                 opt.SignIn.RequireConfirmedAccount = false;
-
-
                 opt.User.RequireUniqueEmail = true;
             })
                .AddEntityFrameworkStores<UserDbContext>()
@@ -74,6 +71,7 @@ namespace Cinemahub2
             app.UseRouting();
 
             app.UseAuthorization();
+            app.UseAuthentication();
 
             app.UseEndpoints(endpoints =>
             {
