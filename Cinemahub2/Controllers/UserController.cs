@@ -15,7 +15,6 @@ namespace Cinemahub2.Controllers
         private IUserService userService;
         private UserManager<User> userManager;
 
-        public UserController() { }
         public UserController(UserManager<User> userManager, IUserService userService)
         {
             this.userService = userService;

@@ -39,7 +39,7 @@ namespace Cinemahub2.Services
         //
         public void Delete(int id)
         {
-           /movieService.Delete(GetById(id).Movie.Id);
+           movieService.Delete(GetById(id).Movie.Id);
         }
         //
         //Summary:
