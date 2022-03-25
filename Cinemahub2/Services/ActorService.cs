@@ -1,5 +1,7 @@
 ﻿using Cinemahub2.Data;
 using Cinemahub2.Models;
+using Cinemahub2.Models.DTOs;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,8 +30,9 @@ namespace Cinemahub2.Services
         //Summary:
         //  Creates a new actor and ads it to the DB
         //
-        public void Create(Actor actor)
+        public void Create(Actor actor, User user)
         {
+            actor.User = user;
             dbContext.Actors.Add(actor);
             dbContext.SaveChanges();
         }
@@ -71,18 +74,47 @@ namespace Cinemahub2.Services
         //Summary:
         //  Returns all actors in the DB
         //
-        public List<Actor> GetAll()
+        public List<ActorDTO> GetAll()
         {
-            return dbContext.Actors.ToList<Actor>();
+            return dbContext.Actors
+                .Select(p => ToDto(p))
+                .ToList(); ;
         }
         //
         //Summary:
         //  Returns all actors having the given userId
         //
-        public List<Actor> GetUserActors(int id)
+        public List<ActorDTO> GetUserActors(int id)
         {
-            return dbContext.Actors.Where(p => p.UserId == id).ToList<Actor>();
+            return dbContext.Actors
+                .Where(p => p.UserId == id)
+                .Select(p => ToDto(p))
+                .ToList<ActorDTO>();
         }
-     
+
+        public List<ActorDTO> GetMovieActors(int id)
+        {
+            return dbContext.Actors
+                .Where(p => p.MovieId == id)
+                .Select(p => ToDto(p))
+                .ToList<ActorDTO>();
+        }
+
+        private static ActorDTO ToDto(Actor a)
+        {
+            ActorDTO actor = new ActorDTO();
+
+            actor.Id = a.Id;
+            actor.Name = a.Name;
+            actor.Nationality = a.Nationality;
+            actor.Status = a.Status;
+            actor.Birthday = a.Birthday;
+            actor.MovieName = a.Movie.Name;
+            actor.CreatedBy = $"{a.User.FirstName} {a.User.LastName}";
+            actor.UserEmail = a.User.Email;
+
+            return actor;
+        }
+
     }
 }
