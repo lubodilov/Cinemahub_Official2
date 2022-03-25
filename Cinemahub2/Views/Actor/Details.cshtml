@@ -1,4 +1,6 @@
-﻿@model Cinemahub2.Models.Actor
+﻿@using Cinemahub2.Models.DTOs;
+@model List<ActorDTO>;
+
 
 @{
     ViewData["Title"] = "Details";
@@ -11,32 +13,34 @@
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
+            Name
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Name)
+            @Model[Model.Count-1].Name
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Birthday)
+            Birthday
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Birthday)
+            @Model[Model.Count - 1].Birthday
+
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Nationality)
+            Nationality
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Nationality)
+            @Model[Model.Count - 1].Nationality
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Status)
+            Status
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Status)
+            @Model[Model.Count - 1].Status
+
         </dd>
     </dl>
 </div>
 <div>
-    <a class="btn btn-outline-warning" asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a class="btn btn-outline-warning" asp-action="Edit" asp-route-id="@Model[Model.Count-1].Id">Edit</a> |
     <a class="btn btn-outline-dark" asp-action="Index">Back to List</a>
 </div>

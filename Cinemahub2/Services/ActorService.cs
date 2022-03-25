@@ -94,10 +94,13 @@ namespace Cinemahub2.Services
 
         public List<ActorDTO> GetMovieActors(int id)
         {
-            return dbContext.Actors
+            List<ActorDTO> ans = dbContext.Actors
                 .Where(p => p.MovieId == id)
                 .Select(p => ToDto(p))
                 .ToList<ActorDTO>();
+            ActorDTO actor = ToDto(GetById(id));
+            ans.Add(actor);
+            return ans;
         }
 
         private static ActorDTO ToDto(Actor a)

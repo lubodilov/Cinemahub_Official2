@@ -38,8 +38,10 @@ namespace Cinemahub2.Controllers
         }
         public IActionResult Details(int id)
         {           
-            Actor actor = actorService.GetById(id);
-            return View(actor);
+            //Actor actor = actorService.GetById(id);
+            List<ActorDTO> movieActors = actorService.GetMovieActors(id);
+            
+            return View(movieActors);
         }
         public IActionResult Edit()
         {
