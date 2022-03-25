@@ -14,27 +14,22 @@
                                 <h2 class="fw-bold mb-2 text-uppercase">Create new Actor</h2>
 
                                 <div class="form-outline form-white mb-4">
-                                    <label class="form-label" for="animalNameInput">Animal Name</label>
-                                    <input type="text" id="animalNameInput" class="form-control form-control-lg" name="animal.name" />
+                                    <label class="form-label" for="actorNameInput">Actor Name</label>
+                                    <input type="text" id="actorNameInput" class="form-control form-control-lg" name="actor.name" />
                                 </div>
                                 <div class="form-outline form-white mb-4">
-                                    <label class="form-label" for="animalAgeInput">Animal Age</label>
-                                    <input type="number" id="animalAgeInput" class="form-control form-control-lg" name="animal.age" />
-                                </div>
-                                <div class="form-outline form-white mb-4">
-                                    <label class="form-label" for="animalSpeciesInput">Species</label>
-                                    <input type="text" id="animalSpeciesInput" class="form-control form-control-lg" name="animal.species" />
-                                </div>
+                                    <label class="form-label" for="actorNationalityInput">Actor Nationality</label>
+                                    <input type="number" id="actorNationalityInput" class="form-control form-control-lg" name="actor.nationality" />
+                                </div>                          
                                 <label class="form-label">Status</label>
-                                <select class="form-outline custom-select form-white mb-4" aria-label="Default select example" name="animal.status">
+                                <select class="form-outline custom-select form-white mb-4" aria-label="Default select example" name="actor.status">
                                     <option selected value="">Select status</option>
-                                    <option value="stray">Stray animal</option>
-                                    <option value="lost">Lost my pet</option>
-                                    <option value="found">Found someone's pet</option>
+                                    <option value="true">Active</option>
+                                    <option value="false">Not Active</option>
                                 </select>
                                 <div class="form-outline form-white mb-4">
-                                    <label class="form-label" for="description">Description</label>
-                                    <input type="text" id="description" class="form-control form-control-lg" name="description" />
+                                    <label class="form-label" for="birthday">Birthday</label>
+                                    <input type="text" id="birthday" class="form-control form-control-lg" name="birthday" />
                                 </div>
                                 <button class="btn btn-outline-light btn-lg px-5" type="submit">Create</button>
                                 <button class="btn btn-outline-light btn-lg px-5" asp-action="Index" asp-controller="Post">Cancel</button>

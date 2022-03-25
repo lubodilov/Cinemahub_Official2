@@ -52,10 +52,10 @@
 </table>
 @if (this.signinManager.IsSignedIn(User))
 {
-    <a class="btn btn-primary" asp-area="" asp-controller="Post" asp-action="Create">Create post</a>
+    <a class="btn btn-primary" asp-area="" asp-controller="Actor" asp-action="Create">Create actor</a>
 }
 else
 {
-    <p>Login to create a post</p>
+    <p>Login to create a actor</p>
     <a class="btn btn-primary" asp-controller="Account" asp-action="Login">Login</a>
 }
