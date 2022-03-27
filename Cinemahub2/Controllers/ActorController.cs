@@ -38,7 +38,7 @@ namespace Cinemahub2.Controllers
         }
         public IActionResult Details(int id)
         {
-            ViewBag.MyProperty = actorService.GetDtoById(id);
+            ViewBag.actor = actorService.GetDtoById(id);
             List<MoviesDTO> movieActors = actorService.GetMovieActors(id);
             
             return View(movieActors);

@@ -1,50 +1,57 @@
 ﻿@using Microsoft.AspNetCore.Identity;
+@model Cinemahub2.Models.Movies
 @inject SignInManager<User> signinManager;
+
+@{
+    ViewData["Title"] = "Create";
+}
+
 @if (this.signinManager.IsSignedIn(User))
 {
-    <form asp-action="Create" asp-controller="Post">
-        <div class="container py-5 h-100">
-            <div class="row d-flex justify-content-center align-items-center h-100">
-                <div class="col-12 col-md-8 col-lg-6 col-xl-5">
-                    <div class="card bg-dark text-white" style="border-radius: 1rem;">
-                        <div class="card-body p-5 text-center">
+    <h1>Create</h1>
 
-                            <div class="mb-md-5 mt-md-4 pb-5">
-
-                                <h2 class="fw-bold mb-2 text-uppercase">Create new Movie</h2>
-
-                                <div class="form-outline form-white mb-4">
-                                    <label class="form-label" for="movieNameInput">Movie Name</label>
-                                    <input type="text" id="movieNameInput" class="form-control form-control-lg" name="movie.name" />
-                                </div>
-                                <div class="form-outline form-white mb-4">
-                                    <label class="form-label" for="movieGenreInput">Movie Genre</label>
-                                    <input type="number" id="movieGenreInput" class="form-control form-control-lg" name="movie.genre" />
-                                </div>
-                                <div class="form-outline form-white mb-4">
-                                    <label class="form-label" for="movieDirectorInput">Movie Director</label>
-                                    <input type="text" id="movieDirectorInput" class="form-control form-control-lg" name="movie.director" />
-                                </div>
-                                <div class="form-outline form-white mb-4">
-                                    <label class="form-label" for="movieDurationInput">Movie Duration</label>
-                                    <input type="text" id="movieDurationInput" class="form-control form-control-lg" name="movie.duration" />
-                                </div>
-                                <div class="form-outline form-white mb-4">
-                                    <label class="form-label" for="birthday">Released</label>
-                                    <input type="text" id="released" class="form-control form-control-lg" name="released" />
-                                </div>
-                                <button class="btn btn-outline-light btn-lg px-5" type="submit">Create</button>
-                                <button class="btn btn-outline-light btn-lg px-5" asp-action="Index" asp-controller="Movies">Cancel</button>
-                            </div>
-                        </div>
-                    </div>
+    <h4>Movies</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Name" class="control-label"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
                 </div>
-            </div>
+                <div class="form-group">
+                    <label asp-for="Director" class="control-label"></label>
+                    <input asp-for="Director" class="form-control" />
+                    <span asp-validation-for="Director" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Duration" class="control-label"></label>
+                    <input asp-for="Duration" class="form-control" />
+                    <span asp-validation-for="Duration" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Released" class="control-label"></label>
+                    <input asp-for="Released" class="form-control" />
+                    <span asp-validation-for="Released" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-outline-primary" />
+                </div>
+            </form>
         </div>
-    </form>
+    </div>
+
+    <div>
+        <a class="btn btn-outline-dark" asp-action="Index">Back to List</a>
+    </div>
 }
 else
 {
     <p>Login to create a post</p>
     <a class="btn btn-primary" asp-controller="Account" asp-action="Login">Login</a>
+}
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

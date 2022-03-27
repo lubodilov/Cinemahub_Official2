@@ -2,7 +2,7 @@
 
 
 <div class="card">
-    <div class="card-header" style="background-color: rgb(233, 230, 220);">
+    <div class="card-header" style="background-color:aqua;">
 
         <h4 class="title">Your Profile</h4>
 
@@ -57,13 +57,13 @@
 
             <div class="text-md-right">
 
-                <button type="submit" class="btn btn-info btn-fill btn-wd"
+                <button type="submit" class="btn btn-outline-info btn-fill btn-wd"
                         asp-param-firstName="firstName" ,asp-param-lastName="lastName" ,
                         asp-param-city="city" ,asp-param-phoneNumber="phoneNumber">
                     Update Profile
                 </button>
 
-                <input type="button" class="btn btn-danger" value="Delete"
+                <input type="button" class="btn btn-outline-danger" value="Delete"
                        onclick="location.href='@Url.Action("Delete", "User")'" />
 
             </div>
@@ -73,6 +73,3 @@
         </form>
     </div>
 </div>
-
-
-<a asp-action="UserPosts" asp-route-id="@Model.Id" asp-controller="Post" class="btn btn-primary">See my posts</a>
