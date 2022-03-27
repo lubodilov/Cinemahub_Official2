@@ -29,9 +29,10 @@ namespace Cinemahub2
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddRazorPages();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IActorService, ActorService>();
-            //services.AddScoped<IMoviesService, MoviesService>();
+            services.AddScoped<IMoviesService, MoviesService>();
             services.AddDbContext<UserDbContext>(options =>
             {
                 options.UseMySQL("Server=localhost;Database=Cinemahub_db;Uid=root;Pwd=Lubodinamo04;");

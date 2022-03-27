@@ -1,5 +1,7 @@
 ﻿using Cinemahub2.Data;
 using Cinemahub2.Models;
+using Cinemahub2.Models.DTOs;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,31 +12,31 @@ namespace Cinemahub2.Services
     public class MoviesService : IMoviesService
     {
         private UserDbContext dbContext;
-        private ActorService actorService;
-        public MoviesService(UserDbContext dbContext)
+        //private IActorService actorService;
+        public MoviesService(UserDbContext dbContext/*, IActorService actorService*/)
         {
             this.dbContext = dbContext;
-            this.actorService = new ActorService(dbContext);
-            foreach (var movie in dbContext.Movies.ToList<Movies>())
-            {
-                movie.Actor = actorService.GetById(movie.Actor.Id);
-            }
+            //this.actorService = actorService;
+            //dbContext.Movies.Include(m => m.Actor).ToList();
         }
+
         //Summary:
         //  Creates a new movie and ads it to the DB
         //
-        public void Create(Movies movie)
+        /*public void Create(Movies movie, User user)
         {
-           dbContext.Movies.Add(movie);
-           dbContext.SaveChanges();
+            movie.User = user;
+            dbContext.Movies.Add(movie);
+            dbContext.SaveChanges();
         }
         //Summary:
-        //  Deletes a actor found by its id and removes it from the DB
+        //  Deletes a movie found by its id and removes it from the DB
         //
 
         public void Delete(int id)
         {
-           actorService.Delete(GetById(id).Actor.Id);
+            dbContext.Movies.Remove(GetById(id));
+            dbContext.SaveChanges();
         }
 
         public void Edit(Movies movie)
@@ -50,25 +52,46 @@ namespace Cinemahub2.Services
             oldMovie.Actor.Status = movie.Actor.Status;
             oldMovie.Actor.Birthday = movie.Actor.Birthday;
             dbContext.SaveChanges();
-        }
+        }*/
         //Summary:
-        //  Returns all actors in the DB
+        //  Returns all movies in the DB
         //
-        public List<Movies> GetAll()
+        public List<MoviesDTO> GetAll()
         {
-           return dbContext.Movies.ToList<Movies>();
+           return dbContext.Movies
+                .Select(p => ToDto(p))
+                .ToList<MoviesDTO>();
         }
         //Summary:
-        //  Finds a actor by Id
+        //  Finds a movie by Id
         //
-        public Movies GetById(int id)
+       /* public Movies GetById(int id)
         {
             return dbContext.Movies.FirstOrDefault(p => p.Id == id);
         }
 
-        public List<Movies> GetUserMovies(int id)
+        public List<MoviesDTO> GetUserMovies(int id)
         {
-           return dbContext.Movies.Where(p => p.UserId == id).ToList<Movies>();
+           return dbContext.Movies
+                .Where(p => p.UserId == id)
+                .Select(p => ToDto(p))
+                .ToList<MoviesDTO>();
+        }
+       */
+        private static MoviesDTO ToDto(Movies a)
+        {
+            MoviesDTO movie = new MoviesDTO();
+
+            movie.Name = a.Name;
+            movie.Genre = a.Genre;
+            movie.Director = a.Director;
+            movie.Duration = a.Duration;
+            movie.Released = a.Released;
+            movie.ActorName = a.Actor.Name;
+            movie.CreatedBy = $"{a.User.FirstName} {a.User.LastName}";
+            movie.UserEmail = a.User.Email;
+
+            return movie;
         }
     }
 }

@@ -1,0 +1,4 @@
+﻿@model Movies
+<h1>Are you sure you want to delete the Movie?</h1>
+<a asp-action="ConfirmDelete" asp-route-id="@Model.Id" asp-controller="Movies" class="btn btn-outline-danger">Delete</a>
+<a asp-action="Index" asp-controller="Movies" class="btn btn-outline-light">Cancel</a>

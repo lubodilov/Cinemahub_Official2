@@ -1,0 +1,68 @@
+﻿@using Microsoft.AspNetCore.Identity;
+@using Cinemahub2.Data;
+@using Cinemahub2.Models.DTOs;
+@model List<MoviesDTO>
+@inject SignInManager<User> signinManager;
+
+@{
+    ViewData["Title"] = "Index";
+}
+<h1>Index</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <strong>Name</strong>
+            </th>
+            <th>
+                <strong>Genre</strong>
+            </th>
+            <th>
+                <strong>Director</strong>
+            </th>
+            <th>
+                <strong>Duration</strong>
+            </th>
+            <th>
+                <strong>Released</strong>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Genre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Director)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Duration)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Released)
+            </td>
+            <td>
+                <a class="btn btn-outline-warning" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a class="btn btn-outline-info" asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a class="btn btn-outline-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+@if (this.signinManager.IsSignedIn(User))
+{
+    <a class="btn btn-outline-primary" asp-area="" asp-controller="Movies" asp-action="Create">Create movie</a>
+}
+else
+{
+    <p>Login to create a movie</p>
+    <a class="btn btn-primary" asp-controller="Account" asp-action="Login">Login</a>
+}

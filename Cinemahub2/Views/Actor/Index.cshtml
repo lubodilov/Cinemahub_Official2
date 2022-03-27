@@ -1,0 +1,63 @@
+﻿@using Microsoft.AspNetCore.Identity;
+@using Cinemahub2.Data;
+@using Cinemahub2.Models.DTOs;
+@model List<ActorDTO>
+@inject SignInManager<User> signinManager;
+
+@{
+    ViewData["Title"] = "Index";
+}
+<h1>Index</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <strong>Name</strong>
+            </th>
+            <th>
+                <strong>Birthday</strong>
+            </th>
+            <th>
+                <strong>Nationality</strong>
+            </th>
+            <th>
+                <strong>Status</strong>
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Birthday)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nationality)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
+                    <a class="btn btn-outline-warning" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a class="btn btn-outline-info" asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a class="btn btn-outline-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@if (this.signinManager.IsSignedIn(User))
+{
+    <a class="btn btn-outline-primary" asp-area="" asp-controller="Actor" asp-action="Create">Create actor</a>
+}
+else
+{
+    <p>Login to create a actor</p>
+    <a class="btn btn-primary" asp-controller="Account" asp-action="Login">Login</a>
+}
