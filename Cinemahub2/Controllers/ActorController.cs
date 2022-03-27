@@ -26,7 +26,7 @@ namespace Cinemahub2.Controllers
 
             return View(actors);
         }
-        public async Task<IActionResult> UserActorsAsync()
+       public async Task<IActionResult> UserActorsAsync()
         {
             User user = await userManager.GetUserAsync(User).ConfigureAwait(false);
             if (user is null)
@@ -37,9 +37,9 @@ namespace Cinemahub2.Controllers
             return View(actors);
         }
         public IActionResult Details(int id)
-        {           
-            //Actor actor = actorService.GetById(id);
-            List<ActorDTO> movieActors = actorService.GetMovieActors(id);
+        {
+            ViewBag.MyProperty = actorService.GetDtoById(id);
+            List<MoviesDTO> movieActors = actorService.GetMovieActors(id);
             
             return View(movieActors);
         }
@@ -131,6 +131,6 @@ namespace Cinemahub2.Controllers
         public IActionResult ViewActor(int id)
         {
             return View(actorService.GetById(id));
-        }
+        } 
     }
 }

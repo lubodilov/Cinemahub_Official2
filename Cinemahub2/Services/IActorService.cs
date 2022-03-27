@@ -12,9 +12,10 @@ namespace Cinemahub2.Services
         void Edit(Actor actor);
         void Delete(int id);
         Actor GetById(int id);
+        ActorDTO GetDtoById(int id);
         void Create(Actor actor, User user);
         List<ActorDTO> GetAll();
         List<ActorDTO> GetUserActors(int id);
-        List<ActorDTO> GetMovieActors(int id);
+        List<MoviesDTO> GetMovieActors(int id);
     }
 }

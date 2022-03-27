@@ -15,16 +15,13 @@ namespace Cinemahub2.Services
     //
     public class ActorService : IActorService
     {
-        private UserDbContext dbContext;
-        private MoviesService movieService;
-        public ActorService(UserDbContext dbContext)
+        private  UserDbContext dbContext;
+        private  IMoviesService movieService;
+        public ActorService(UserDbContext dbContext, IMoviesService movieService)
         {
             this.dbContext = dbContext;
-            this.movieService = new MoviesService(dbContext);
-            foreach (var actor in dbContext.Actors.ToList<Actor>())
-            {
-                actor.Movie = movieService.GetById(actor.Movie.Id);
-            }
+            this.movieService = movieService;
+            dbContext.Actors.Include(m => m.Movie).ToList();
         }
         //
         //Summary:
@@ -42,7 +39,8 @@ namespace Cinemahub2.Services
         //
         public void Delete(int id)
         {
-           movieService.Delete(GetById(id).Movie.Id);
+            dbContext.Actors.Remove(GetById(id));
+            dbContext.SaveChanges();
         }
         //
         //Summary:
@@ -55,11 +53,14 @@ namespace Cinemahub2.Services
             oldActor.Nationality = actor.Nationality;
             oldActor.Status = actor.Status;
             oldActor.Birthday = actor.Birthday;
-            oldActor.Movie.Name = actor.Movie.Name;
-            oldActor.Movie.Genre = actor.Movie.Genre;
-            oldActor.Movie.Director = actor.Movie.Director;
-            oldActor.Movie.Released = actor.Movie.Released;
-            oldActor.Movie.Duration = actor.Movie.Duration;
+            if(actor.Movie!=null)
+            {
+                oldActor.Movie.Name = actor.Movie.Name;
+                oldActor.Movie.Genre = actor.Movie.Genre;
+                oldActor.Movie.Director = actor.Movie.Director;
+                oldActor.Movie.Released = actor.Movie.Released;
+                oldActor.Movie.Duration = actor.Movie.Duration;
+            }
             dbContext.SaveChanges();
         }
         //
@@ -68,8 +69,20 @@ namespace Cinemahub2.Services
         //
         public Actor GetById(int id)
         {
-            return dbContext.Actors.FirstOrDefault(p => p.Id == id);
+            return dbContext.Actors
+                .FirstOrDefault(p => p.Id == id);
         }
+
+        //
+        //Summary:
+        //  Finds a actorDTO by Id
+        //
+        public ActorDTO GetDtoById(int id)
+        {
+            return ToDto(dbContext.Actors
+                .FirstOrDefault(p => p.Id == id));
+        }
+
         //
         //Summary:
         //  Returns all actors in the DB
@@ -77,14 +90,15 @@ namespace Cinemahub2.Services
         public List<ActorDTO> GetAll()
         {
             return dbContext.Actors
-                .Select(p => ToDto(p))
-                .ToList(); ;
+                .Include(a => a.Movie)
+                .Select(a => ToDto(a))
+                .ToList();
         }
         //
         //Summary:
         //  Returns all actors having the given userId
         //
-        public List<ActorDTO> GetUserActors(int id)
+         public List<ActorDTO> GetUserActors(int id)
         {
             return dbContext.Actors
                 .Where(p => p.UserId == id)
@@ -92,17 +106,14 @@ namespace Cinemahub2.Services
                 .ToList<ActorDTO>();
         }
 
-        public List<ActorDTO> GetMovieActors(int id)
+        public List<MoviesDTO> GetMovieActors(int id)
         {
-            List<ActorDTO> ans = dbContext.Actors
-                .Where(p => p.MovieId == id)
+            List<MoviesDTO> ans = dbContext.Movies
+                .Where(p => p.ActorsId == id)
                 .Select(p => ToDto(p))
-                .ToList<ActorDTO>();
-            ActorDTO actor = ToDto(GetById(id));
-            ans.Add(actor);
+                .ToList<MoviesDTO>();
             return ans;
         }
-
         private static ActorDTO ToDto(Actor a)
         {
             ActorDTO actor = new ActorDTO();
@@ -112,11 +123,38 @@ namespace Cinemahub2.Services
             actor.Nationality = a.Nationality;
             actor.Status = a.Status;
             actor.Birthday = a.Birthday;
-            actor.MovieName = a.Movie.Name;
-            actor.CreatedBy = $"{a.User.FirstName} {a.User.LastName}";
+            if (a.Movie != null)
+            {
+                actor.MovieName = a.Movie.Name;
+            }
+            if (a.User != null)
+            {
+                actor.CreatedBy = $"{a.User.FirstName} {a.User.LastName}";
             actor.UserEmail = a.User.Email;
+            }
 
             return actor;
+        }
+        private static MoviesDTO ToDto(Movies a)
+        {
+            MoviesDTO movie = new MoviesDTO();
+
+            movie.Name = a.Name;
+            movie.Genre = a.Genre;
+            movie.Director = a.Director;
+            movie.Duration = a.Duration;
+            movie.Released = a.Released;
+            if (a.Actor!= null)
+            {
+                movie.ActorName = a.Actor.Name;
+            }
+            if (a.User != null)
+            {
+                movie.CreatedBy = $"{a.User.FirstName} {a.User.LastName}";
+                movie.UserEmail = a.User.Email;
+            }
+
+            return movie;
         }
 
     }

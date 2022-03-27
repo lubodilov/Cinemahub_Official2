@@ -2,7 +2,7 @@
 @inject SignInManager<User> signinManager;
 @if (this.signinManager.IsSignedIn(User))
 {
-    <form asp-action="Create" asp-controller="Post">
+    <form asp-action="Create" asp-controller="Actor">
         <div class="container py-5 h-100">
             <div class="row d-flex justify-content-center align-items-center h-100">
                 <div class="col-12 col-md-8 col-lg-6 col-xl-5">
@@ -32,7 +32,7 @@
                                     <input type="text" id="birthday" class="form-control form-control-lg" name="birthday" />
                                 </div>
                                 <button class="btn btn-outline-light btn-lg px-5" type="submit">Create</button>
-                                <button class="btn btn-outline-light btn-lg px-5" asp-action="Index" asp-controller="Post">Cancel</button>
+                                <button class="btn btn-outline-light btn-lg px-5" asp-action="Index" asp-controller="Actor">Cancel</button>
                             </div>
                         </div>
                     </div>

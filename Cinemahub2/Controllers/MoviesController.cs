@@ -12,7 +12,7 @@ namespace Cinemahub2.Controllers
 {
     public class MoviesController : Controller
     {
-        private IMoviesService movieService;
+       private IMoviesService movieService;
         private UserManager<User> userManager;
         public MoviesController(IMoviesService movieService, UserManager<User> userManager)
         {
@@ -26,7 +26,7 @@ namespace Cinemahub2.Controllers
 
             return View(movies);
         }
-        public async Task<IActionResult> UserMoviesAsync()
+       /* public async Task<IActionResult> UserMoviesAsync()
          {
              User user = await userManager.GetUserAsync(User).ConfigureAwait(false);
              if (user is null)
@@ -129,6 +129,6 @@ namespace Cinemahub2.Controllers
          public IActionResult ViewActor(int id)
          {
              return View(movieService.GetById(id));
-         }
+         }*/
     }
 }

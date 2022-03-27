@@ -15,7 +15,7 @@ namespace Cinemahub2.Models
         public DateTime Birthday { get; set; }
         
         [ForeignKey("Movies")]
-        public int MovieId { get; set; }
+        public int MoviesId { get; set; }
         public Movies Movie { get; set; }
         
         [ForeignKey("User")]
