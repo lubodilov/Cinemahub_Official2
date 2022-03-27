@@ -26,7 +26,7 @@ namespace Cinemahub2.Controllers
 
             return View(movies);
         }
-       /* public async Task<IActionResult> UserMoviesAsync()
+        public async Task<IActionResult> UserMoviesAsync()
          {
              User user = await userManager.GetUserAsync(User).ConfigureAwait(false);
              if (user is null)
@@ -81,7 +81,7 @@ namespace Cinemahub2.Controllers
              return View();
          }
          [HttpPost]
-         public async Task<IActionResult> CreateAsync(Movies movie)
+         public async Task<IActionResult> Create(Movies movie)
          {
              User user = await userManager.GetUserAsync(User).ConfigureAwait(false);
              if (user is null)
@@ -129,6 +129,6 @@ namespace Cinemahub2.Controllers
          public IActionResult ViewActor(int id)
          {
              return View(movieService.GetById(id));
-         }*/
+         }
     }
 }

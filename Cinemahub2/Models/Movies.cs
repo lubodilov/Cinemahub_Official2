@@ -26,7 +26,7 @@ namespace Cinemahub2.Models
         public int Duration { get; set; }
         
         [ForeignKey("Actor")]
-        public int ActorsId { get; set; }
+        public int? ActorsId { get; set; }
         public Actor Actor { get; set; }
         
         [ForeignKey("User")]

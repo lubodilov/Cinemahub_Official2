@@ -23,7 +23,7 @@ namespace Cinemahub2.Services
         //Summary:
         //  Creates a new movie and ads it to the DB
         //
-        /*public void Create(Movies movie, User user)
+        public void Create(Movies movie, User user)
         {
             movie.User = user;
             dbContext.Movies.Add(movie);
@@ -52,7 +52,7 @@ namespace Cinemahub2.Services
             oldMovie.Actor.Status = movie.Actor.Status;
             oldMovie.Actor.Birthday = movie.Actor.Birthday;
             dbContext.SaveChanges();
-        }*/
+        }
         //Summary:
         //  Returns all movies in the DB
         //
@@ -65,7 +65,7 @@ namespace Cinemahub2.Services
         //Summary:
         //  Finds a movie by Id
         //
-       /* public Movies GetById(int id)
+        public Movies GetById(int id)
         {
             return dbContext.Movies.FirstOrDefault(p => p.Id == id);
         }
@@ -77,7 +77,7 @@ namespace Cinemahub2.Services
                 .Select(p => ToDto(p))
                 .ToList<MoviesDTO>();
         }
-       */
+       
         private static MoviesDTO ToDto(Movies a)
         {
             MoviesDTO movie = new MoviesDTO();
