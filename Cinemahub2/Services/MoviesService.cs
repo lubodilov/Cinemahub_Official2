@@ -87,9 +87,9 @@ namespace Cinemahub2.Services
             movie.Director = a.Director;
             movie.Duration = a.Duration;
             movie.Released = a.Released;
-            movie.ActorName = a.Actor.Name;
-            movie.CreatedBy = $"{a.User.FirstName} {a.User.LastName}";
-            movie.UserEmail = a.User.Email;
+            //movie.ActorName = a.Actor.Name;
+            //movie.CreatedBy = $"{a.User.FirstName} {a.User.LastName}";
+            //movie.UserEmail = a.User.Email;
 
             return movie;
         }

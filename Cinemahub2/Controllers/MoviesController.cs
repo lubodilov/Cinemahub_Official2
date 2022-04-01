@@ -38,8 +38,9 @@ namespace Cinemahub2.Controllers
          }
         public IActionResult Details(int id)
         {
-            Movies movie = movieService.GetById(id);
-            return View(movie);
+            ViewBag.movie = movieService.GetById(id);
+            //Movies movie = movieService.GetById(id);
+            return View();
         }
         public IActionResult Edit()
          {
@@ -54,10 +55,10 @@ namespace Cinemahub2.Controllers
              {
                  return RedirectToAction(nameof(Index));
              }
-             if (movie.UserId != user.Id)
+             /*if (movie.UserId != user.Id)
              {
                  return RedirectToAction(nameof(Index));
-             }
+             }*/
              return View(movieService.GetById(id));
          }
          [HttpPost]
@@ -104,10 +105,10 @@ namespace Cinemahub2.Controllers
              {
                  return RedirectToAction(nameof(Index));
              }
-             if (movie.UserId != user.Id)
+             /*if (movie.UserId != user.Id)
              {
                  return RedirectToAction(nameof(Index));
-             }
+             }*/
              return View(movie);
          }
          public async Task<IActionResult> ConfirmDeleteAsync(int id)
@@ -118,10 +119,10 @@ namespace Cinemahub2.Controllers
              {
                  return RedirectToAction(nameof(Index));
              }
-             if (movie.UserId != user.Id)
+             /*if (movie.UserId != user.Id)
              {
                  return RedirectToAction(nameof(Index));
-             }
+             }*/
              movieService.Delete(id);
              return RedirectToAction(nameof(Index));
          }
